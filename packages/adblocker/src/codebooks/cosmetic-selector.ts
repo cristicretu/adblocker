@@ -37,6 +37,7 @@ export default [
   "acs, String.fromCharCode, ",
   "%2522%253Afalse%252C%2522",
   ", document.oncontextmenu",
+  ", document.onselectstart",
   "%2522%253Atrue%252C%2522",
   "aeld, DOMContentLoaded, ",
   "nosiif, visibility, 1000",
@@ -175,7 +176,6 @@ export default [
   "la",
   "le",
   "lo",
-  "od",
   "ol",
   "om",
   "on",
@@ -239,7 +239,6 @@ export default [
   "M",
   "n",
   "N",
-  "o",
   "O",
   "p",
   "P",
@@ -260,5 +259,6 @@ export default [
   "x",
   "y",
   "Y",
-  "z"
+  "z",
+  "Z"
 ];

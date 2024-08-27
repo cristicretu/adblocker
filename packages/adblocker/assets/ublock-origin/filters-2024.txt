@@ -1512,7 +1512,7 @@ choosingnothing.com##+js(nostif, cvad)
 choosingnothing.com###cvad
 choosingnothing.com###cvadclo
 choosingnothing.com##div[data-player] > a[href][style*="z-index"]
-###player div[style="font-size: 15px; color: white; background-color: rgba(0, 0, 0, 0); cursor: pointer; position: absolute; width: 100%; height: 100%; padding: 1rem; z-index: 2147483647;"]
+###player div[style$="cursor: pointer; position: absolute; width: 100%; height: 100%; padding: 1rem; z-index: 2147483647;"]
 ! https://github.com/uBlockOrigin/uAssets/issues/23500
 cryptorank.io##+js(nostif, ..., 300)
 cryptorank.io##tbody > tr:not(.init-scroll):has(a[href*="?"][target="_blank"])
@@ -1604,7 +1604,7 @@ asianlbfm.net,schoolgirls-asia.org##+js(aopr, loadTool)
 ! timer to show image
 pimpandhost.com##+js(nano-stb, count)
 ! https://github.com/uBlockOrigin/uAssets/issues/23635
-||imasdk.googleapis.com/js/sdkloader/ima3.js$script,domain=tv.okezone.com,redirect-rule=google-ima.js
+||imasdk.googleapis.com/js/sdkloader/ima3.js$script,domain=tv.okezone.com,redirect=google-ima.js
 @@||cdnjs.cloudflare.com/ajax/libs/videojs-contrib-ads/6.9.0/videojs-contrib-ads.min.js$script,domain=tv.okezone.com
 ! https://www.reddit.com/r/uBlockOrigin/comments/1cp1oa6/block_target_sponsored_items/
 target.com##+js(json-prune-fetch-response, data.search.products.%5B-%5D.sponsored_ad.ad_source, , propsToMatch, url%3A%2Fplp_search_v2%3F)
@@ -2275,3 +2275,30 @@ hancinema.net##+js(no-fetch-if, %2Fclarity%7Cgooglesyndication%2F)
 hancinema.net##.ad_300x600_300x250
 ! https://github.com/uBlockOrigin/uAssets/issues/24991
 webnovelworld.org##:is(#chapter-container, .comment-list, .container, .rank-novels) > div[class]:has(> [id^="pf-"])
+! help.sakarnewz. com detection
+help.sakarnewz.com##+js(rmnt, script, googlesyndication)
+! https://www.reddit.com/r/uBlockOrigin/comments/1f0p9wj/adblock_detected_site_btvbg/
+btv.bg###leading_video_player_autoplay_wrapper:remove()
+btv.bg###leading_video_player_autoplay_main_wrapper:style(display: block !important;)
+btv.bg##.vjs-continue-watching-bar
+||imasdk.googleapis.com/js/sdkloader/ima3.js$script,redirect=google-ima.js,domain=btv.bg
+! https://github.com/uBlockOrigin/uAssets/issues/25038
+!#if cap_html_filtering
+sexwebvideo.com,sexwebvideo.net##^script:has-text(detectAdBlock)
+!#else
+sexwebvideo.com,sexwebvideo.net##+js(rmnt, script, detectAdBlock)
+!#endif
+sexwebvideo.com,sexwebvideo.net##+js(set, flashvars.popunder_url, )
+! https://github.com/uBlockOrigin/uAssets/issues/25050
+javsek.net##+js(nosiif, pop)
+$script,3p,denyallow=facebook.net|fbcdn.net,domain=javsek.net
+! https://github.com/uBlockOrigin/uAssets/issues/25042
+melaniezettofrais.online##+js(nostif, sandbox)
+1jour1film.cyou###fakeplayer
+! https://github.com/uBlockOrigin/uAssets/issues/25054
+jokersportshd.org,tennis.stream##+js(nowoif, %2Faff%7Cjump%2F)
+! https://github.com/uBlockOrigin/uAssets/issues/25059
+@@||101soundboards.com^$ghide
+101soundboards.com##[id^="rewarded_ad_"]:not(#rewarded_ad_blocker):style(display: block !important; visibility: visible !important;)
+101soundboards.com##+js(no-fetch-if, googlesyndication)
+101soundboards.com##+js(nano-stb, , 10000, 0.001)

@@ -2732,12 +2732,12 @@ canale.live##+js(nosiif, href)
 ! Ad-Shield
 ! https://github.com/uBlockOrigin/uAssets/issues/21385
 !#if cap_html_filtering
-||07c225f3.online^$~css,domain=etoday.co.kr|genshinlab.com|dogdrip.net|thestar.co.uk|yorkshirepost.co.uk|indiatimes.com
-||content-loader.com^$~css,domain=etoday.co.kr|genshinlab.com|dogdrip.net|thestar.co.uk|yorkshirepost.co.uk|indiatimes.com
-||css-load.com^$~css,domain=etoday.co.kr|genshinlab.com|dogdrip.net|thestar.co.uk|yorkshirepost.co.uk|indiatimes.com
-||html-load.com^$~css,domain=etoday.co.kr|genshinlab.com|dogdrip.net|thestar.co.uk|yorkshirepost.co.uk|indiatimes.com
-||img-load.com^$~css,domain=etoday.co.kr|genshinlab.com|dogdrip.net|thestar.co.uk|yorkshirepost.co.uk|indiatimes.com
-@@/loader.min.js$xhr,script,domain=etoday.co.kr|genshinlab.com|dogdrip.net|thestar.co.uk|yorkshirepost.co.uk|indiatimes.com
+||07c225f3.online^$~css,domain=etoday.co.kr|genshinlab.com|dogdrip.net|thestar.co.uk|yorkshirepost.co.uk
+||content-loader.com^$~css,domain=etoday.co.kr|genshinlab.com|dogdrip.net|thestar.co.uk|yorkshirepost.co.uk
+||css-load.com^$~css,domain=etoday.co.kr|genshinlab.com|dogdrip.net|thestar.co.uk|yorkshirepost.co.uk
+||html-load.com^$~css,domain=etoday.co.kr|genshinlab.com|dogdrip.net|thestar.co.uk|yorkshirepost.co.uk
+||img-load.com^$~css,domain=etoday.co.kr|genshinlab.com|dogdrip.net|thestar.co.uk|yorkshirepost.co.uk
+@@/loader.min.js$xhr,script,domain=etoday.co.kr|genshinlab.com|dogdrip.net|thestar.co.uk|yorkshirepost.co.uk
 !#else
 ||html-load.com/loader.min.js$domain=badmouth1.com|hoyme.jp|jin115.com|lamire.jp|picrew.me
 etoday.co.kr,genshinlab.com,etnews.com,dogdrip.net,etnewskorea.com,automobile-catalog.com,maketecheasier.com,gadgets360.com,motorbikecatalog.com,jjang0u.com##+js(no-fetch-if, %2Fad%5C.doubleclick%5C.net%7Cstatic%5C.dable%5C.io%2F)
@@ -2778,8 +2778,9 @@ gadgets360.com###adslot300x250ATF
 ||css-load.com^$domain=ygosu.com|loawa.com|bamgosu.site|thestockmarketwatch.com
 ||css-load.com^$redirect=noopjs,domain=honkailab.com
 ||07c225f3.online^$domain=economist.co.kr|hometownstation.com|sportalkorea.com|edaily.co.kr|isplus.com
-||html-load.com^$redirect=noopjs,domain=raenonx.cc
-raenonx.cc##+js(nostif, error-report.com)
+||html-load.com^$redirect=noopjs,domain=raenonx.cc|indiatimes.com
+raenonx.cc,indiatimes.com##+js(nostif, error-report.com)
+indiatimes.com##+js(set, objAd.loadAdShield, noopFunc)
 ygosu.com,bamgosu.site##+js(trusted-replace-argument, HTMLScriptElement.prototype.setAttribute, 1, %7B%22value%22%3A%20%22(function()%7Blet%20link%3Ddocument.createElement('link')%3Blink.rel%3D'stylesheet'%3Blink.href%3D'%2F%2Fimage.ygosu.com%2Fstyle%2Fmain.css'%3Bdocument.head.appendChild(link)%7D)()%22%7D, condition, error-report)
 loawa.com##+js(trusted-replace-argument, HTMLScriptElement.prototype.setAttribute, 1, %7B%22value%22%3A%20%22(function()%7Blet%20link%3Ddocument.createElement('link')%3Blink.rel%3D'stylesheet'%3Blink.href%3D'https%3A%2F%2Floawa.com%2Fassets%2Fcss%2Floawa.min.css'%3Bdocument.head.appendChild(link)%7D)()%22%7D, condition, error-report)
 economist.co.kr##+js(rpnt, script, _paq.push, %2F*start*%2F(function()%7Blet%20link%3Ddocument.createElement(%22link%22)%3Blink.rel%3D%22stylesheet%22%3Blink.href%3D%22%2Fcss%2Fpc%2Fecn_common.min.css%22%3Bdocument.head.appendChild(link)%7D)()%3Bdocument.currentScript.textContent%3Ddocument.currentScript.textContent.replace(%2F%5C%2F%5C*start%5C*%5C%2F(.*)%5C%2F%5C*end%5C*%5C%2F%2Fg%2C%22%22)%3B%2F*end*%2F_paq.push)
@@ -3202,7 +3203,6 @@ coffeete.ir##+js(window-close-if, %2Fsoft98)
 ||smostafa.ir/?utm_source=footer^$doc,csp=script-src
 ! https://github.com/uBlockOrigin/uAssets/issues/15073
 upiapi.in##+js(set, detectAdBlock, noopFunc)
-! https://github.com/uBlockOrigin/uAssets/issues/15080
 ! https://github.com/uBlockOrigin/uAssets/issues/18244
 ! https://github.com/uBlockOrigin/uAssets/issues/19433
 ! https://github.com/uBlockOrigin/uAssets/issues/22074
