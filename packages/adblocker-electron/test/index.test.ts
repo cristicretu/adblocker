@@ -70,3 +70,112 @@ describe('#parse', () => {
     });
   });
 });
+
+describe('#insertNode', () => {
+  it('should append node to document head', () => {
+    const document = {
+      head: {
+        appendChild: (node: Node) => {
+          expect(node).to.equal('testNode');
+        },
+      },
+    } as unknown as Document;
+
+    const node = 'testNode' as unknown as Node;
+    insertNode(node, document);
+  });
+
+  it('should handle CSP violation gracefully', () => {
+    const document = {
+      head: {
+        appendChild: () => {
+          throw new Error('CSP violation');
+        },
+      },
+      createElement: () => ({
+        style: {},
+        contentDocument: {
+          open: () => {},
+          write: () => {},
+          body: {
+            appendChild: (node: Node) => {
+              expect(node).to.equal('testNode');
+            },
+          },
+          close: () => {},
+        },
+        contentWindow: {
+          document: {
+            open: () => {},
+            write: () => {},
+            body: {
+              appendChild: (node: Node) => {
+                expect(node).to.equal('testNode');
+              },
+            },
+            close: () => {},
+          },
+        },
+      }),
+      body: {
+        appendChild: () => {},
+        removeChild: () => {},
+      },
+    } as unknown as Document;
+
+    const node = 'testNode' as unknown as Node;
+    insertNode(node, document);
+  });
+});
+
+describe('#injectScript', () => {
+  it('should inject script in non-Firefox browsers', () => {
+    const document = {
+      createElement: () => ({
+        type: '',
+        id: '',
+        async: false,
+        appendChild: (node: Node) => {
+          expect(node).to.equal('testNode');
+        },
+      }),
+      createTextNode: (script: string) => {
+        expect(script).to.equal('testScript');
+        return 'testNode' as unknown as Node;
+      },
+    } as unknown as Document;
+
+    injectScript('testScript', document);
+  });
+
+  it('should inject script in Firefox browsers', async () => {
+    const document = {
+      defaultView: {
+        navigator: {
+          userAgent: 'Firefox',
+        },
+        Blob: class {
+          constructor(public content: string[], public options: { type: string }) {}
+        },
+        URL: {
+          createObjectURL: (blob: { content: string[]; options: { type: string } }) => {
+            expect(blob.content).to.deep.equal(['testScript']);
+            expect(blob.options.type).to.equal('text/javascript; charset=utf-8');
+            return 'testUrl';
+          },
+          revokeObjectURL: (url: string) => {
+            expect(url).to.equal('testUrl');
+          },
+        },
+      },
+      createElement: () => ({
+        async: false,
+        id: '',
+        src: '',
+        appendChild: () => {},
+      }),
+    } as unknown as Document;
+
+    await injectScript('testScript', document);
+  });
+});

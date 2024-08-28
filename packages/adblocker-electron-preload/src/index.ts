@@ -22,6 +22,70 @@ function getCosmeticsFiltersUpdate(data: Omit<IBackgroundCallback, 'lifecycle'>)
   ipcRenderer.send('get-cosmetic-filters', window.location.href, data);
 }
 
+function insertNode(node: Node, document: Document) {
+  const parent = document.head || document.documentElement || document;
+  if (parent !== null) {
+    try {
+      parent.appendChild(node);
+    } catch (e) {
+      console.error('CSP violation detected, falling back to alternative method', e);
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+      const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+      if (iframeDoc) {
+        iframeDoc.open();
+        iframeDoc.write('<body></body>');
+        iframeDoc.body.appendChild(node);
+        iframeDoc.close();
+      }
+      document.body.removeChild(iframe);
+    }
+  }
+}
+
+function injectScriptlet(s: string, doc: Document): void {
+  const script = doc.createElement('script');
+  script.type = 'text/javascript';
+  script.id = 'cliqz-adblocker-script';
+  script.async = false;
+  script.appendChild(doc.createTextNode(s));
+
+  insertNode(script, doc);
+}
+
+function isFirefox(doc: Document) {
+  try {
+    return doc.defaultView?.navigator?.userAgent?.indexOf('Firefox') !== -1;
+  } catch (e) {
+    return false;
+  }
+}
+
+async function injectScriptletFirefox(s: string, doc: Document) {
+  const win = doc.defaultView!;
+  const script = doc.createElement('script');
+  script.async = false;
+  script.id = 'cliqz-adblocker-script';
+  const blob = new win.Blob([s], { type: 'text/javascript; charset=utf-8' });
+  const url = win.URL.createObjectURL(blob);
+
+  // a hack for tests to that allows for async URL.createObjectURL
+  // eslint-disable-next-line @typescript-eslint/await-thenable
+  script.src = await url;
+
+  insertNode(script, doc);
+  win.URL.revokeObjectURL(url);
+}
+
+export function injectScript(s: string, doc: Document): void {
+  if (isFirefox(doc)) {
+    injectScriptletFirefox(s, doc);
+  } else {
+    injectScriptlet(s, doc);
+  }
+}
+
 if (window === window.top && window.location.href.startsWith('devtools://') === false) {
   (() => {
     const enableMutationObserver = ipcRenderer.sendSync('is-mutation-observer-enabled');
